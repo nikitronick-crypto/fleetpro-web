@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0B0C">
+<title>Cuenta confirmada · FleetPro</title>
+<link rel="icon" href="assets/escudo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&family=Inter:wght@400;500&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/estilo.css">
+</head>
+<body>
+<div class="envoltura">
+  <div class="marca">
+    <img src="assets/escudo.png" alt="FleetPro">
+    <h1>FleetPro</h1>
+    <p>Gestión de flotas inteligente</p>
+  </div>
+
+  <div class="tarjeta centro" id="ok">
+    <div class="icono ok">✓</div>
+    <h2>Cuenta confirmada</h2>
+    <p>Ya puedes entrar a FleetPro con tu correo y contraseña.</p>
+    <p style="color:var(--dim);font-size:13px">Vuelve a la aplicación en tu teléfono.</p>
+  </div>
+
+  <div class="tarjeta centro oculto" id="error">
+    <div class="icono mal">!</div>
+    <h2>El enlace no sirve</h2>
+    <p id="detalle">Puede haber vencido o haberse usado antes.</p>
+    <p style="color:var(--dim);font-size:13px">Pide un enlace nuevo desde la aplicación.</p>
+  </div>
+  <div class="pie">
+    <a href="index.html">Inicio</a>
+    <a href="privacidad.html">Privacidad</a>
+    <a href="eliminar-cuenta.html">Eliminar cuenta</a>
+    <div style="margin-top:12px">FleetPro · Nicolás Vidal Gómez · Curicó, Chile</div>
+  </div>
+</div>
+
+<script>
+// Supabase avisa de un problema con parametros en el fragmento de la URL.
+(function () {
+  var p = new URLSearchParams(location.hash.slice(1));
+  var err = p.get('error_description') || p.get('error');
+  if (!err) return;
+  document.getElementById('ok').classList.add('oculto');
+  document.getElementById('error').classList.remove('oculto');
+  var t = decodeURIComponent(err).toLowerCase();
+  document.getElementById('detalle').textContent =
+    t.indexOf('expired') >= 0 ? 'El enlace vencio. Los enlaces duran 24 horas.'
+                              : 'Puede haber vencido o haberse usado antes.';
+})();
+</script>
+</body>
+</html>
