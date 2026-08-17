@@ -1,6 +1,6 @@
 # FleetPro · sitio público
 
-**Operador de la plataforma:** Nicolás Vidal Gómez · `nikitronick@gmail.com`
+**Operador de la plataforma:** Nicolás Vidal Gómez · `fleetpro.soporte@gmail.com`
 **Mecánica Curicó Spa** es una flota usuaria, como cualquier otra: sus datos son suyos
 y su correo no aparece en el sitio ni en los correos del sistema.
 
