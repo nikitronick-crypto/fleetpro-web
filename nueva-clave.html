@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0B0C">
+<title>Nueva contraseña · FleetPro</title>
+<link rel="icon" href="assets/escudo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&family=Inter:wght@400;500&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/estilo.css">
+</head>
+<body>
+<div class="envoltura">
+  <div class="marca">
+    <img src="assets/escudo.png" alt="FleetPro">
+    <h1>FleetPro</h1>
+    <p>Gestión de flotas inteligente</p>
+  </div>
+
+  <div class="tarjeta acento" id="formulario">
+    <h2>Elige una contraseña nueva</h2>
+    <p style="font-size:14px">Se guarda cifrada y viaja directo al servidor de
+       autenticación. Esta página no la almacena en ninguna parte.</p>
+
+    <div id="alerta"></div>
+
+    <label for="clave1">Contraseña nueva</label>
+    <input type="password" id="clave1" autocomplete="new-password" placeholder="Mínimo 6 caracteres">
+
+    <label for="clave2">Repetir contraseña</label>
+    <input type="password" id="clave2" autocomplete="new-password">
+
+    <button class="boton" id="guardar">Guardar contraseña</button>
+  </div>
+
+  <div class="tarjeta centro oculto" id="listo">
+    <div class="icono ok">✓</div>
+    <h2>Contraseña actualizada</h2>
+    <p>Vuelve a la aplicación y entra con tu contraseña nueva.</p>
+  </div>
+
+  <div class="tarjeta centro oculto" id="invalido">
+    <div class="icono mal">!</div>
+    <h2>El enlace no sirve</h2>
+    <p id="detalleInvalido">Los enlaces de recuperación duran una hora y se usan una sola vez.</p>
+    <p style="color:var(--dim);font-size:13px">Pide uno nuevo desde la aplicación, en
+       «Olvidé mi contraseña».</p>
+  </div>
+  <div class="pie">
+    <a href="index.html">Inicio</a>
+    <a href="privacidad.html">Privacidad</a>
+    <a href="eliminar-cuenta.html">Eliminar cuenta</a>
+    <div style="margin-top:12px">FleetPro · Mecánica Curicó Spa · Curicó, Chile</div>
+  </div>
+</div>
+
+<script src="assets/config.js"></script>
+<script>
+(function () {
+  var cfg = window.FLEETPRO;
+  var frm = document.getElementById('formulario');
+  var listo = document.getElementById('listo');
+  var invalido = document.getElementById('invalido');
+  var alerta = document.getElementById('alerta');
+  var boton = document.getElementById('guardar');
+
+  // El enlace del correo trae el token en el fragmento de la URL. Queda ahi y
+  // nunca se envia al servidor de esta pagina: solo lo lee el navegador.
+  var p = new URLSearchParams(location.hash.slice(1));
+  var token = p.get('access_token');
+  var error = p.get('error_description') || p.get('error');
+
+  function mostrarInvalido(texto) {
+    frm.classList.add('oculto');
+    invalido.classList.remove('oculto');
+    if (texto) document.getElementById('detalleInvalido').textContent = texto;
+  }
+
+  if (error) {
+    var t = decodeURIComponent(error).toLowerCase();
+    mostrarInvalido(t.indexOf('expired') >= 0
+      ? 'El enlace vencio. Los enlaces de recuperacion duran una hora.'
+      : null);
+    return;
+  }
+  if (!token) {
+    mostrarInvalido('Falta el codigo de recuperacion. Abre el enlace tal como llego al correo.');
+    return;
+  }
+
+  function avisar(texto, clase) {
+    alerta.innerHTML = '<div class="aviso ' + clase + '">' + texto + '</div>';
+  }
+
+  boton.addEventListener('click', function () {
+    var a = document.getElementById('clave1').value;
+    var b = document.getElementById('clave2').value;
+
+    if (a.length < 6) { avisar('La contrasena necesita al menos 6 caracteres.', 'error'); return; }
+    if (a !== b)      { avisar('Las contrasenas no coinciden.', 'error'); return; }
+
+    boton.disabled = true;
+    boton.textContent = 'Guardando...';
+
+    fetch(cfg.SUPABASE_URL.replace(/\/+$/, '') + '/auth/v1/user', {
+      method: 'PUT',
+      headers: {
+        'apikey': cfg.SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ password: a })
+    })
+    .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+    .then(function (res) {
+      if (!res.ok) {
+        var m = (res.j && (res.j.msg || res.j.message || res.j.error_description)) || '';
+        if (m.toLowerCase().indexOf('expired') >= 0 || m.toLowerCase().indexOf('invalid') >= 0) {
+          mostrarInvalido(null);
+          return;
+        }
+        avisar(m || 'No se pudo guardar. Intenta de nuevo.', 'error');
+        boton.disabled = false;
+        boton.textContent = 'Guardar contrasena';
+        return;
+      }
+      frm.classList.add('oculto');
+      listo.classList.remove('oculto');
+      history.replaceState(null, '', location.pathname);  // el token sale de la barra
+    })
+    .catch(function () {
+      avisar('Sin conexion con el servidor. Revisa tu internet.', 'error');
+      boton.disabled = false;
+      boton.textContent = 'Guardar contrasena';
+    });
+  });
+})();
+</script>
+</body>
+</html>
