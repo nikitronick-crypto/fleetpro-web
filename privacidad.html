@@ -21,7 +21,7 @@
 
   <div class="tarjeta">
     <h2>Política de privacidad</h2>
-    <p class="fecha">Vigente desde el 17 de agosto de 2026</p>
+    <p class="fecha">Vigente desde el 21 de agosto de 2026</p>
 
     <p>FleetPro es una aplicación de control de flota operada por Nicolás Vidal Gómez,
        persona natural, Curicó, Chile. Esta política explica qué datos se guardan, para qué y qué puedes
@@ -34,6 +34,7 @@
       <tr><td>Contraseña</td><td>Acceder. Se guarda cifrada; nadie puede leerla, tampoco nosotros</td></tr>
       <tr><td>Datos de tus vehículos</td><td>Patentes, kilometraje, mantenciones, documentos, neumáticos y eventos que tú registras</td></tr>
       <tr><td>Fotos</td><td>Las imágenes de vehículos y neumáticos que tú tomas</td></tr>
+      <tr><td>Lecturas del escáner OBD-II</td><td>Códigos de falla, datos del motor y número de chasis (VIN), si conectas un adaptador y lo lees</td></tr>
     </table>
 
     <p>La aplicación <strong>no</strong> recoge ubicación, contactos, historial de
@@ -46,9 +47,39 @@
        cuentas que pertenecen a esa flota, y esa barrera está impuesta en el servidor.</p>
 
     <h3>Con quién se comparten</h3>
-    <p>Con nadie. Los datos no se venden, ceden ni entregan a terceros con fines
-       comerciales. Solo se entregarían ante una orden judicial.</p>
+    <p><strong>No se venden, ceden ni entregan a terceros con fines comerciales.</strong>
+       Nunca. Solo se entregarían ante una orden judicial.</p>
     <p>Los miembros de tu flota ven los datos de esa flota. Tú decides a quién invitas.</p>
+    <p>Hay dos empresas que tratan datos por encargo nuestro, siguiendo nuestras
+       instrucciones y sin poder usarlos para nada propio: <strong>Supabase</strong>, donde
+       vive la base de datos y las fotos, y <strong>Anthropic</strong>, que redacta el
+       informe del escáner cuando tú se lo pides. Eso no es lo mismo que compartir tus
+       datos: son proveedores que hacen una tarea concreta y no obtienen ningún derecho
+       sobre lo que les enviamos.</p>
+
+    <h3>El informe del escáner</h3>
+    <p>Si conectas un adaptador OBD-II, la aplicación lee lo que reporta la computadora de
+       tu vehículo y te lo muestra traducido con una tabla que vive dentro del teléfono.
+       <strong>Eso funciona sin internet y no sale de tu dispositivo.</strong></p>
+    <p>Aparte, hay un botón —«Explicar en lenguaje simple»— que redacta un informe para
+       alguien que no es mecánico. <strong>Solo si lo tocas</strong> se envía a Anthropic,
+       nuestro proveedor de inteligencia artificial:</p>
+    <ul>
+      <li>La patente, marca, modelo, año y kilometraje del vehículo.</li>
+      <li>El número de chasis (VIN), si el vehículo lo entregó.</li>
+      <li>Los códigos de falla y los datos del motor que se acaban de leer.</li>
+      <li>La mantención pendiente de ese vehículo: aceite, neumáticos y documentos.</li>
+    </ul>
+    <p><strong>No se envía tu correo, tu contraseña ni ninguna fotografía.</strong></p>
+    <p>Anthropic usa esos datos únicamente para redactar el informe y devolverlo.
+       <strong>No los utiliza para entrenar sus modelos</strong> —así lo establece el
+       contrato del servicio de pago que tenemos con ellos— y los conserva solo un plazo
+       breve para detectar usos abusivos de su plataforma.</p>
+    <p>El informe queda guardado en tu flota, junto con los datos que se enviaron para
+       generarlo. Se guarda por tres motivos: para que puedas releerlo sin señal, para no
+       volver a generarlo cada vez, y para que si alguna vez un informe dice algo
+       equivocado podamos revisar exactamente qué pasó.</p>
+    <p>Si nunca tocas ese botón, nada de esto ocurre.</p>
 
     <h3>Acceso del operador</h3>
     <p>Como responsable de la aplicación, Nicolás Vidal Gómez administra la base de datos
