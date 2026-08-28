@@ -21,7 +21,7 @@
 
   <div class="tarjeta">
     <h2>Política de privacidad</h2>
-    <p class="fecha">Vigente desde el 21 de agosto de 2026</p>
+    <p class="fecha">Vigente desde el 27 de agosto de 2026</p>
 
     <p>FleetPro es una aplicación de control de flota operada por Nicolás Vidal Gómez,
        persona natural, Curicó, Chile. Esta política explica qué datos se guardan, para qué y qué puedes
@@ -35,11 +35,12 @@
       <tr><td>Datos de tus vehículos</td><td>Patentes, kilometraje, mantenciones, documentos, neumáticos y eventos que tú registras</td></tr>
       <tr><td>Fotos</td><td>Las imágenes de vehículos y neumáticos que tú tomas</td></tr>
       <tr><td>Lecturas del escáner OBD-II</td><td>Códigos de falla, datos del motor y número de chasis (VIN), si conectas un adaptador y lo lees</td></tr>
+      <tr><td>Ubicación</td><td>Solo mientras tengas un viaje abierto, para medir los kilómetros. Se guarda el resumen del viaje, no el recorrido</td></tr>
     </table>
 
-    <p>La aplicación <strong>no</strong> recoge ubicación, contactos, historial de
-       navegación ni identificadores publicitarios. No hay publicidad ni rastreo de
-       terceros.</p>
+    <p>La aplicación <strong>no</strong> recoge contactos, historial de navegación ni
+       identificadores publicitarios. No hay publicidad ni rastreo de terceros. La
+       ubicación se usa solo para la función de Viajes, y está explicada más abajo.</p>
 
     <h3>Dónde se guardan</h3>
     <p>En tu teléfono y en servidores de Supabase, alojados en infraestructura de Amazon
@@ -56,6 +57,25 @@
        informe del escáner cuando tú se lo pides. Eso no es lo mismo que compartir tus
        datos: son proveedores que hacen una tarea concreta y no obtienen ningún derecho
        sobre lo que les enviamos.</p>
+
+    <h3>Ubicación y viajes</h3>
+    <p>La aplicación accede a la ubicación de tu teléfono <strong>únicamente mientras un
+       viaje está abierto</strong>, y eres tú quien lo abre y quien lo cierra. Mientras se
+       está midiendo, el teléfono muestra una notificación permanente: si no la ves, no se
+       está midiendo.</p>
+    <p>De cada viaje se guarda un resumen: fecha, hora de inicio y de término, duración,
+       kilómetros recorridos, velocidad máxima y promedio, el vehículo, quién conducía y
+       el costo estimado de combustible.</p>
+    <p><strong>No se guarda el recorrido ni las coordenadas por las que pasaste</strong>,
+       ni el punto de partida ni el de llegada. La base de datos no tiene ninguna columna
+       donde ponerlos: las posiciones se usan para sumar metros y se descartan en el acto,
+       dentro del teléfono. Un viaje terminado no permite reconstruir por dónde fuiste.</p>
+    <p>No accedemos a tu ubicación con la aplicación cerrada ni en segundo plano, y no
+       compartimos datos de ubicación con nadie. El permiso de ubicación en segundo plano
+       está expresamente excluido de la aplicación.</p>
+    <p>Los demás miembros de tu flota ven los viajes de la flota, igual que ven el resto de
+       los registros. La aplicación funciona completa sin conceder este permiso: lo único
+       que se pierde es la medición automática, y los kilómetros se pueden anotar a mano.</p>
 
     <h3>El informe del escáner</h3>
     <p>Si conectas un adaptador OBD-II, la aplicación lee lo que reporta la computadora de
@@ -81,6 +101,15 @@
        equivocado podamos revisar exactamente qué pasó.</p>
     <p>Si nunca tocas ese botón, nada de esto ocurre.</p>
 
+    <h3>Pagos</h3>
+    <p>La suscripción se paga a través de <strong>Mercado Pago</strong>. Al tocar el botón
+       de pago, la aplicación pide al servidor un enlace y lo abre en tu navegador: el
+       cobro ocurre entero en el sitio de Mercado Pago, bajo su propia política de
+       privacidad.</p>
+    <p><strong>FleetPro nunca ve ni guarda los datos de tu tarjeta, cuenta o medio de
+       pago.</strong> De vuelta solo recibe si el pago quedó aprobado, su monto y su fecha,
+       que es lo que hace falta para extender tu suscripción.</p>
+
     <h3>Acceso del operador</h3>
     <p>Como responsable de la aplicación, Nicolás Vidal Gómez administra la base de datos
        y tiene, por lo tanto, capacidad técnica de acceder a su contenido. Ese acceso se
@@ -93,6 +122,12 @@
     <h3>Cuánto tiempo se conservan</h3>
     <p>Mientras tu cuenta exista. Al eliminarla, tus datos y fotos se borran de forma
        definitiva en un plazo máximo de 30 días.</p>
+    <p>Si eras el único miembro de tu flota, se borra la flota entera con todo su
+       contenido. Si quedaban otros miembros, la flota sigue siendo de ellos y sus
+       registros permanecen —el historial de un vehículo le sirve a quien lo siga
+       administrando—, pero <strong>tu correo se borra de esos registros</strong>: donde
+       decía quién hizo cada movimiento o quién condujo cada viaje, queda «usuario
+       eliminado». No queda ningún dato que te identifique.</p>
 
     <h3>Tus derechos</h3>
     <ul>
